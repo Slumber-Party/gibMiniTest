@@ -157,6 +157,9 @@ NTSTATUS GetFileNameWithExt(
     RtlAppendUnicodeToString(fileNameWithExt, targetDir);
     RtlAppendUnicodeStringToString(fileNameWithExt, &fileInfo->FinalComponent);
 
+    FltReleaseFileNameInformation(fileInfo);
+    ExFreePool(pFileInfo);
+
     return status;
 }
 
