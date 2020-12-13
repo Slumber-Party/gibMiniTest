@@ -140,7 +140,6 @@
   <ItemGroup>
     <ClCompile Include="Callbacks.c" />
     <ClCompile Include="miniTestFilter.c" />
-    <ClCompile Include="Utils.c" />
   </ItemGroup>
   <ItemGroup>
     <Inf Exclude="@(Inf)" Include="miniTestFilter.inf" />
@@ -152,7 +151,7 @@
     <None Exclude="@(None)" Include="*.def;*.bat;*.hpj;*.asmx" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Exclude="@(ClInclude)" Include="*.h;*.hpp;*.hxx;*.hm;*.inl;*.xsd" />
+    <ClInclude Include="Global.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
