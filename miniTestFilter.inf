@@ -1,0 +1,91 @@
+[Version]
+Signature   = "$Windows NT$"
+Class       = "ActivityMonitor"             ;This is determined by the work this filter driver does
+ClassGuid   = {b86dff51-a31e-4bac-b3cf-e8cfe75c9fc2}    ;This value is determined by the Class
+Provider    = %ProviderString%
+DriverVer   = 12/12/2020,0.0.0.1
+CatalogFile = MiniTestFilter.cat
+PnpLockdown = 1
+
+
+[DestinationDirs]
+DefaultDestDir          = 12
+MiniTestFilter.DriverFiles  = 12            ;%windir%\system32\drivers
+
+;;
+;; Default install sections
+;;
+
+[DefaultInstall.NT]
+OptionDesc  = %ServiceDescription%
+CopyFiles   = MiniTestFilter.DriverFiles
+LegacyInstall=1
+
+[DefaultInstall.NT.Services]
+AddService  = %ServiceName%,,MiniTestFilter.Service
+
+;;
+;; Default uninstall sections
+;;
+
+[DefaultUninstall.NT]
+DelFiles   = MiniTestFilter.DriverFiles
+LegacyUninstall=1
+
+[DefaultUninstall.NT.Services]
+DelService = %ServiceName%,0x200      ;Ensure service is stopped before deleting
+
+;
+; Services Section
+;
+
+[MiniTestFilter.Service]
+DisplayName      = %ServiceName%
+Description      = %ServiceDescription%
+ServiceBinary    = %12%\%DriverName%.sys    ;%windir%\system32\drivers\
+Dependencies     = "FltMgr"
+ServiceType      = 2                        ;SERVICE_FILE_SYSTEM_DRIVER
+StartType        = 3                        ;SERVICE_DEMAND_START
+ErrorControl     = 1                        ;SERVICE_ERROR_NORMAL
+LoadOrderGroup   = "FSFilter Activity Monitor"
+AddReg           = MiniTestFilter.AddRegistry
+
+;
+; Registry Modifications
+;
+
+[MiniTestFilter.AddRegistry]
+HKR,,"SupportedFeatures",0x00010001,0x3
+HKR,"Instances","DefaultInstance",0x00000000,%DefaultInstance%
+HKR,"Instances\"%Instance1.Name%,"Altitude",0x00000000,%Instance1.Altitude%
+HKR,"Instances\"%Instance1.Name%,"Flags",0x00010001,%Instance1.Flags%
+
+;
+; Copy Files
+;
+
+[MiniTestFilter.DriverFiles]
+%DriverName%.sys
+
+[SourceDisksFiles]
+MiniTestFilter.sys = 1,,
+
+[SourceDisksNames]
+1 = %DiskId1%,,,
+
+;;
+;; String Section
+;;
+
+[Strings]
+ProviderString          = "MiniTest Inc."
+ServiceDescription      = "MiniTestFilter mini-filter driver"
+ServiceName             = "MiniTestFilter"
+DriverName              = "MiniTestFilter"
+DiskId1                 = "MiniTestFilter Device Installation Disk"
+
+;Instances specific information.
+DefaultInstance         = "MiniTestFilter Instance"
+Instance1.Name          = "MiniTestFilter Instance"
+Instance1.Altitude      = "370020"
+Instance1.Flags         = 0x1          ; Suppress automatic attachments
