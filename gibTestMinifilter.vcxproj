@@ -141,7 +141,6 @@
     <ClCompile Include="Callbacks.c" />
     <ClCompile Include="miniTestFilter.c" />
     <ClCompile Include="Utils.c" />
-    <ResourceCompile Include="miniTestFilter.rc" />
   </ItemGroup>
   <ItemGroup>
     <Inf Exclude="@(Inf)" Include="miniTestFilter.inf" />

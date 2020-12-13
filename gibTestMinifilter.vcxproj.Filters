@@ -24,11 +24,6 @@
     </Inf>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="miniTestFilter.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="miniTestFilter.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,7 +38,7 @@
     <ClInclude Include="*.h;*.hpp;*.hxx;*.hm;*.inl;*.xsd">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils.h">
+    <ClInclude Include="*.h;*.hpp;*.hxx;*.hm;*.inl;*.xsd">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
